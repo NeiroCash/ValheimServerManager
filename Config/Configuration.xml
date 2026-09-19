@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConfigurationData>
+  <ServerDirectory>D:\ValheimServer\</ServerDirectory>
+  <ServerExecutable>valheim_server.exe</ServerExecutable>
+  <WorldsDirectory>D:\ValheimServer\worlds\</WorldsDirectory>
+  <BackupsDirectory>D:\ValheimServer\backups\</BackupsDirectory>
+  <StartupArguments>-name "My Valheim Server" -port 2456 -world "MyWorld"</StartupArguments>
+  <AutoStart>false</AutoStart>
+  <MinimizeToTray>true</MinimizeToTray>
+  <CloseToTray>true</CloseToTray>
+  <CheckForUpdates>true</CheckForUpdates>
+  <AutomaticBackups>true</AutomaticBackups>
+  <NotifyOnServerState>true</NotifyOnServerState>
+  <NotifyOnPlayers>true</NotifyOnPlayers>
+  <NotifyOnErrors>true</NotifyOnErrors>
+  <SelectedTheme>Dark (Default)</SelectedTheme>
+  <SelectedAccentColor>Blue</SelectedAccentColor>
+  <SelectedLanguage>English</SelectedLanguage>
+  <SelectedLogLevel>Info</SelectedLogLevel>
+  <SelectedBackupInterval>Every 6 hours</SelectedBackupInterval>
+</ConfigurationData>
