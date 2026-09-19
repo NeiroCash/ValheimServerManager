@@ -2,7 +2,7 @@ using System.Windows.Controls;
 
 namespace ValheimServerManager.Views;
 
-public partial class NavigationSidebar : UserControl
+public partial class NavigationSidebar : System.Windows.Controls.UserControl
 {
     public NavigationSidebar()
     {
