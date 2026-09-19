@@ -6,24 +6,24 @@ namespace ValheimServerManager.ViewModels;
 public sealed class DashboardViewModel : ViewModelBase
 {
     public ServerStatus Server { get; } = new(
-        name: "MyValheim Server",
-        state: "Running",
-        version: "v1.0.14",
-        gameMode: "Survival",
-        serverType: "Dedicated",
-        players: "3 / 10",
-        uptime: "2h 14m",
-        worldName: "MyWorld",
-        port: "2456",
-        maxPlayers: "10",
-        passwordProtected: "••••••",
-        saveDirectory: "D:\Games\ValheimServer\worlds",
-        publicServer: "Enabled",
-        worldPreset: "Custom",
-        modded: "Yes",
-        playerCountText: "Players: 3 / 10",
-        serverMode: "Dedicated",
-        currentWorld: "MyWorld");
+        Name: "MyValheim Server",
+        State: "Running",
+        Version: "v1.0.14",
+        GameMode: "Survival",
+        ServerType: "Dedicated",
+        Players: "3 / 10",
+        Uptime: "2h 14m",
+        WorldName: "MyWorld",
+        Port: "2456",
+        MaxPlayers: "10",
+        PasswordProtected: "••••••",
+        SaveDirectory: @"D:\Games\ValheimServer\worlds",
+        PublicServer: "Enabled",
+        WorldPreset: "Custom",
+        Modded: "Yes",
+        PlayerCountText: "Players: 3 / 10",
+        ServerMode: "Dedicated",
+        CurrentWorld: "MyWorld");
 
     public ObservableCollection<ServerInfoItem> ServerInformation { get; } = new()
     {
@@ -32,7 +32,7 @@ public sealed class DashboardViewModel : ViewModelBase
         new("Password", "••••••"),
         new("Port", "2456"),
         new("Max Players", "10"),
-        new("Save Directory", "D:\Games\ValheimServer\worlds"),
+        new("Save Directory", @"D:\Games\ValheimServer\worlds"),
         new("Public Server", "Visible in Steam"),
     };
 
