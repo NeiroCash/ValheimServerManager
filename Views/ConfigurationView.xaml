@@ -36,11 +36,26 @@
                 <Border Grid.Column="0" Style="{StaticResource ConfigCardStyle}" Margin="0,0,12,12">
                     <StackPanel>
                         <TextBlock Text="▣  Server Paths" Style="{StaticResource ConfigCardTitleStyle}" />
+
                         <TextBlock Text="Server Directory" Style="{StaticResource FieldLabelStyle}" />
-                        <TextBox Text="{Binding ServerDirectory, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ConfigTextBoxStyle}" />
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="34" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding ServerDirectory, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ConfigTextBoxStyle}" />
+                            <Button Grid.Column="1" Content="..." Command="{Binding BrowseServerDirectoryCommand}" Style="{StaticResource SecondaryActionButtonStyle}" Margin="6,0,0,0" />
+                        </Grid>
 
                         <TextBlock Text="Server Executable" Style="{StaticResource FieldLabelStyle}" />
-                        <TextBox Text="{Binding ServerExecutable, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ConfigTextBoxStyle}" />
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="34" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding ServerExecutable, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ConfigTextBoxStyle}" />
+                            <Button Grid.Column="1" Content="..." Command="{Binding BrowseExecutableCommand}" Style="{StaticResource SecondaryActionButtonStyle}" Margin="6,0,0,0" />
+                        </Grid>
 
                         <TextBlock Text="World" Style="{StaticResource FieldLabelStyle}" />
                         <ComboBox ItemsSource="{Binding WorldOptions}" SelectedItem="{Binding SelectedWorld, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ConfigComboBoxStyle}" />
@@ -51,10 +66,24 @@
                         <Button Content="↻  Refresh worlds" Command="{Binding RefreshWorldsCommand}" Style="{StaticResource SecondaryActionButtonStyle}" HorizontalAlignment="Left" Margin="0,8,0,0" />
 
                         <TextBlock Text="Worlds directory (local saves)" Style="{StaticResource FieldLabelStyle}" />
-                        <TextBox Text="{Binding WorldsDirectory, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Style="{StaticResource ConfigTextBoxStyle}" />
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="34" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding WorldsDirectory, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Style="{StaticResource ConfigTextBoxStyle}" />
+                            <Button Grid.Column="1" Content="..." Command="{Binding BrowseWorldsDirectoryCommand}" Style="{StaticResource SecondaryActionButtonStyle}" Margin="6,0,0,0" />
+                        </Grid>
 
                         <TextBlock Text="Backups Directory" Style="{StaticResource FieldLabelStyle}" />
-                        <TextBox Text="{Binding BackupsDirectory, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ConfigTextBoxStyle}" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="34" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding BackupsDirectory, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ConfigTextBoxStyle}" />
+                            <Button Grid.Column="1" Content="..." Command="{Binding BrowseBackupsDirectoryCommand}" Style="{StaticResource SecondaryActionButtonStyle}" Margin="6,0,0,0" />
+                        </Grid>
                     </StackPanel>
                 </Border>
 
