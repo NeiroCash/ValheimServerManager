@@ -1,0 +1,28 @@
+<UserControl x:Class="ValheimServerManager.Views.WorldModifiersPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:ValheimServerManager.ViewModels">
+    <UserControl.DataContext>
+        <vm:DashboardViewModel />
+    </UserControl.DataContext>
+
+    <Border Background="{StaticResource CardBackgroundBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="10" Padding="18">
+        <StackPanel>
+            <TextBlock Text="World Modifiers" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource PrimaryTextBrush}" />
+            <ItemsControl ItemsSource="{Binding WorldModifiers}" Margin="0,18,0,0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,9,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Label}" Foreground="{StaticResource SecondaryTextBrush}" FontSize="13" />
+                            <TextBlock Grid.Column="1" Text="{Binding Value}" Foreground="{StaticResource AccentBrush}" FontSize="13" FontWeight="Medium" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Border>
+</UserControl>
