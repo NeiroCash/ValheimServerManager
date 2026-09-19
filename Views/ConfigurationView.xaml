@@ -3,59 +3,178 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:ValheimServerManager.ViewModels"
              Background="{StaticResource WindowBackgroundBrush}">
-    <UserControl.DataContext><vm:ConfigurationViewModel /></UserControl.DataContext>
+    <UserControl.DataContext>
+        <vm:ConfigurationViewModel />
+    </UserControl.DataContext>
+
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid Margin="24,18,24,28">
-            <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
             <Grid Grid.Row="0" Margin="0,0,0,22">
-                <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
-                <StackPanel><TextBlock Text="⚙  Configuration" FontSize="28" FontWeight="SemiBold" /><TextBlock Text="Application, server and advanced settings" Margin="0,5,0,0" Foreground="{StaticResource SecondaryTextBrush}" /></StackPanel>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <TextBlock Text="⚙  Configuration" FontSize="28" FontWeight="SemiBold" Foreground="{StaticResource PrimaryTextBrush}" />
+                    <TextBlock Text="Application, server and advanced settings" Margin="0,5,0,0" Foreground="{StaticResource SecondaryTextBrush}" />
+                </StackPanel>
+
                 <Button Grid.Column="1" Content="↻  Reset to Default" Style="{StaticResource SecondaryActionButtonStyle}" />
             </Grid>
+
             <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="*" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
-                <Border Grid.Column="0" Style="{StaticResource ConfigCardStyle}" Margin="0,0,12,12"><StackPanel>
-                    <TextBlock Text="▣  Server Paths" Style="{StaticResource ConfigCardTitleStyle}" />
-                    <TextBlock Text="Server Directory" Style="{StaticResource FieldLabelStyle}" /><TextBox Text="{Binding ServerDirectory, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ConfigTextBoxStyle}" />
-                    <TextBlock Text="Server Executable" Style="{StaticResource FieldLabelStyle}" /><TextBox Text="{Binding ServerExecutable, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ConfigTextBoxStyle}" />
-                    <TextBlock Text="Worlds Directory" Style="{StaticResource FieldLabelStyle}" /><TextBox Text="{Binding WorldsDirectory, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ConfigTextBoxStyle}" />
-                    <TextBlock Text="Backups Directory" Style="{StaticResource FieldLabelStyle}" /><TextBox Text="{Binding BackupsDirectory, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ConfigTextBoxStyle}" />
-                </StackPanel></Border>
-                <Border Grid.Column="1" Style="{StaticResource ConfigCardStyle}" Margin="0,0,12,12"><StackPanel>
-                    <TextBlock Text="▶  Server Startup" Style="{StaticResource ConfigCardTitleStyle}" />
-                    <TextBlock Text="Startup Arguments" Style="{StaticResource FieldLabelStyle}" /><TextBox Text="{Binding StartupArguments, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ConfigTextBoxStyle}" />
-                    <CheckBox Content="Auto start server on application launch" IsChecked="{Binding AutoStart}" Style="{StaticResource ConfigCheckBoxStyle}" />
-                    <CheckBox Content="Minimize to tray when server is running" IsChecked="{Binding MinimizeToTray}" Style="{StaticResource ConfigCheckBoxStyle}" />
-                    <CheckBox Content="Close to tray instead of exit" IsChecked="{Binding CloseToTray}" Style="{StaticResource ConfigCheckBoxStyle}" />
-                    <CheckBox Content="Check for server updates on startup" IsChecked="{Binding CheckForUpdates}" Style="{StaticResource ConfigCheckBoxStyle}" />
-                </StackPanel></Border>
-                <Border Grid.Column="2" Style="{StaticResource ConfigCardStyle}" Margin="0,0,0,12"><StackPanel>
-                    <TextBlock Text="▣  Application" Style="{StaticResource ConfigCardTitleStyle}" />
-                    <TextBlock Text="Theme" Style="{StaticResource FieldLabelStyle}" /><ComboBox ItemsSource="{Binding Themes}" SelectedItem="{Binding SelectedTheme}" Style="{StaticResource ConfigComboBoxStyle}" />
-                    <TextBlock Text="Accent Color" Style="{StaticResource FieldLabelStyle}" /><ComboBox ItemsSource="{Binding AccentColors}" SelectedItem="{Binding SelectedAccentColor}" Style="{StaticResource ConfigComboBoxStyle}" />
-                    <TextBlock Text="Language" Style="{StaticResource FieldLabelStyle}" /><ComboBox ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" Style="{StaticResource ConfigComboBoxStyle}" />
-                    <CheckBox Content="Start with Windows" Style="{StaticResource ConfigCheckBoxStyle}" />
-                    <CheckBox Content="Check for updates automatically" IsChecked="{Binding CheckForUpdates}" Style="{StaticResource ConfigCheckBoxStyle}" />
-                    <CheckBox Content="Send anonymous usage data" Style="{StaticResource ConfigCheckBoxStyle}" />
-                </StackPanel></Border>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Style="{StaticResource ConfigCardStyle}" Margin="0,0,12,12">
+                    <StackPanel>
+                        <TextBlock Text="▣  Server Paths" Style="{StaticResource ConfigCardTitleStyle}" />
+
+                        <TextBlock Text="Server Directory" Style="{StaticResource FieldLabelStyle}" />
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="34" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding ServerDirectory, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ConfigTextBoxStyle}" />
+                            <Button Grid.Column="1" Content="..." Command="{Binding BrowseServerDirectoryCommand}" Style="{StaticResource SecondaryActionButtonStyle}" Margin="6,0,0,0" />
+                        </Grid>
+
+                        <TextBlock Text="Server Executable" Style="{StaticResource FieldLabelStyle}" />
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="34" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding ServerExecutable, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ConfigTextBoxStyle}" />
+                            <Button Grid.Column="1" Content="..." Command="{Binding BrowseExecutableCommand}" Style="{StaticResource SecondaryActionButtonStyle}" Margin="6,0,0,0" />
+                        </Grid>
+
+                        <TextBlock Text="Worlds Directory" Style="{StaticResource FieldLabelStyle}" />
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="34" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding WorldsDirectory, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ConfigTextBoxStyle}" />
+                            <Button Grid.Column="1" Content="..." Command="{Binding BrowseWorldsDirectoryCommand}" Style="{StaticResource SecondaryActionButtonStyle}" Margin="6,0,0,0" />
+                        </Grid>
+
+                        <TextBlock Text="Backups Directory" Style="{StaticResource FieldLabelStyle}" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="34" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding BackupsDirectory, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ConfigTextBoxStyle}" />
+                            <Button Grid.Column="1" Content="..." Command="{Binding BrowseBackupsDirectoryCommand}" Style="{StaticResource SecondaryActionButtonStyle}" Margin="6,0,0,0" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="1" Style="{StaticResource ConfigCardStyle}" Margin="0,0,12,12">
+                    <StackPanel>
+                        <TextBlock Text="▶  Server Startup" Style="{StaticResource ConfigCardTitleStyle}" />
+                        <TextBlock Text="Startup Arguments" Style="{StaticResource FieldLabelStyle}" />
+                        <TextBox Text="{Binding StartupArguments, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ConfigTextBoxStyle}" />
+
+                        <CheckBox Content="Auto start server on application launch" IsChecked="{Binding AutoStart}" Style="{StaticResource ConfigCheckBoxStyle}" />
+                        <CheckBox Content="Minimize to tray when server is running" IsChecked="{Binding MinimizeToTray}" Style="{StaticResource ConfigCheckBoxStyle}" />
+                        <CheckBox Content="Close to tray instead of exit" IsChecked="{Binding CloseToTray}" Style="{StaticResource ConfigCheckBoxStyle}" />
+                        <CheckBox Content="Check for server updates on startup" IsChecked="{Binding CheckForUpdates}" Style="{StaticResource ConfigCheckBoxStyle}" />
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="2" Style="{StaticResource ConfigCardStyle}" Margin="0,0,0,12">
+                    <StackPanel>
+                        <TextBlock Text="▣  Application" Style="{StaticResource ConfigCardTitleStyle}" />
+
+                        <TextBlock Text="Theme" Style="{StaticResource FieldLabelStyle}" />
+                        <ComboBox ItemsSource="{Binding Themes}" SelectedItem="{Binding SelectedTheme}" Style="{StaticResource ConfigComboBoxStyle}" />
+
+                        <TextBlock Text="Accent Color" Style="{StaticResource FieldLabelStyle}" />
+                        <ComboBox ItemsSource="{Binding AccentColors}" SelectedItem="{Binding SelectedAccentColor}" Style="{StaticResource ConfigComboBoxStyle}" />
+
+                        <TextBlock Text="Language" Style="{StaticResource FieldLabelStyle}" />
+                        <ComboBox ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" Style="{StaticResource ConfigComboBoxStyle}" />
+
+                        <CheckBox Content="Start with Windows" Style="{StaticResource ConfigCheckBoxStyle}" />
+                        <CheckBox Content="Check for updates automatically" IsChecked="{Binding CheckForUpdates}" Style="{StaticResource ConfigCheckBoxStyle}" />
+                        <CheckBox Content="Send anonymous usage data" Style="{StaticResource ConfigCheckBoxStyle}" />
+                    </StackPanel>
+                </Border>
             </Grid>
+
             <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="*" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
-                <Border Grid.Column="0" Style="{StaticResource ConfigCardStyle}" Margin="0,0,12,0"><StackPanel>
-                    <TextBlock Text="▤  Logging" Style="{StaticResource ConfigCardTitleStyle}" />
-                    <TextBlock Text="Log Level" Style="{StaticResource FieldLabelStyle}" /><ComboBox ItemsSource="{Binding LogLevels}" SelectedItem="{Binding SelectedLogLevel}" Style="{StaticResource ConfigComboBoxStyle}" />
-                    <CheckBox Content="Enable detailed logging" Style="{StaticResource ConfigCheckBoxStyle}" /><CheckBox Content="Show timestamps" IsChecked="True" Style="{StaticResource ConfigCheckBoxStyle}" /><CheckBox Content="Also log to file" IsChecked="True" Style="{StaticResource ConfigCheckBoxStyle}" />
-                    <StackPanel Orientation="Horizontal" Margin="0,16,0,0"><Button Content="Open Log Folder" Style="{StaticResource SecondaryActionButtonStyle}" /><Button Content="Clear Logs" Style="{StaticResource SecondaryActionButtonStyle}" /></StackPanel>
-                </StackPanel></Border>
-                <Border Grid.Column="1" Style="{StaticResource ConfigCardStyle}" Margin="0,0,12,0"><StackPanel>
-                    <TextBlock Text="▤  Backup Settings" Style="{StaticResource ConfigCardTitleStyle}" /><CheckBox Content="Automatic Backups" IsChecked="{Binding AutomaticBackups}" Style="{StaticResource ConfigCheckBoxStyle}" />
-                    <TextBlock Text="Backup Interval" Style="{StaticResource FieldLabelStyle}" /><ComboBox ItemsSource="{Binding BackupIntervals}" SelectedItem="{Binding SelectedBackupInterval}" Style="{StaticResource ConfigComboBoxStyle}" />
-                    <CheckBox Content="Backup World Files" IsChecked="True" Style="{StaticResource ConfigCheckBoxStyle}" /><CheckBox Content="Backup Config Files" IsChecked="True" Style="{StaticResource ConfigCheckBoxStyle}" /><CheckBox Content="Backup Before Update" IsChecked="True" Style="{StaticResource ConfigCheckBoxStyle}" /><CheckBox Content="Backup Before Mod Changes" IsChecked="True" Style="{StaticResource ConfigCheckBoxStyle}" />
-                    <Button Content="Open Backup Folder" Style="{StaticResource SecondaryActionButtonStyle}" HorizontalAlignment="Left" Margin="0,12,0,0" />
-                </StackPanel></Border>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Style="{StaticResource ConfigCardStyle}" Margin="0,0,12,0">
+                    <StackPanel>
+                        <TextBlock Text="▤  Logging" Style="{StaticResource ConfigCardTitleStyle}" />
+                        <TextBlock Text="Log Level" Style="{StaticResource FieldLabelStyle}" />
+                        <ComboBox ItemsSource="{Binding LogLevels}" SelectedItem="{Binding SelectedLogLevel}" Style="{StaticResource ConfigComboBoxStyle}" />
+
+                        <CheckBox Content="Enable detailed logging" Style="{StaticResource ConfigCheckBoxStyle}" />
+                        <CheckBox Content="Show timestamps" IsChecked="True" Style="{StaticResource ConfigCheckBoxStyle}" />
+                        <CheckBox Content="Also log to file" IsChecked="True" Style="{StaticResource ConfigCheckBoxStyle}" />
+
+                        <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
+                            <Button Content="Open Log Folder" Style="{StaticResource SecondaryActionButtonStyle}" />
+                            <Button Content="Clear Logs" Style="{StaticResource SecondaryActionButtonStyle}" Margin="8,0,0,0" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="1" Style="{StaticResource ConfigCardStyle}" Margin="0,0,12,0">
+                    <StackPanel>
+                        <TextBlock Text="▤  Backup Settings" Style="{StaticResource ConfigCardTitleStyle}" />
+                        <CheckBox Content="Automatic Backups" IsChecked="{Binding AutomaticBackups}" Style="{StaticResource ConfigCheckBoxStyle}" />
+
+                        <TextBlock Text="Backup Interval" Style="{StaticResource FieldLabelStyle}" />
+                        <ComboBox ItemsSource="{Binding BackupIntervals}" SelectedItem="{Binding SelectedBackupInterval}" Style="{StaticResource ConfigComboBoxStyle}" />
+
+                        <CheckBox Content="Backup World Files" IsChecked="True" Style="{StaticResource ConfigCheckBoxStyle}" />
+                        <CheckBox Content="Backup Config Files" IsChecked="True" Style="{StaticResource ConfigCheckBoxStyle}" />
+                        <CheckBox Content="Backup Before Update" IsChecked="True" Style="{StaticResource ConfigCheckBoxStyle}" />
+                        <CheckBox Content="Backup Before Mod Changes" IsChecked="True" Style="{StaticResource ConfigCheckBoxStyle}" />
+
+                        <Button Content="Open Backup Folder" Style="{StaticResource SecondaryActionButtonStyle}" HorizontalAlignment="Left" Margin="0,12,0,0" />
+                    </StackPanel>
+                </Border>
+
                 <StackPanel Grid.Column="2">
-                    <Border Style="{StaticResource ConfigCardStyle}" Margin="0,0,0,12"><StackPanel><TextBlock Text="♟  Notifications" Style="{StaticResource ConfigCardTitleStyle}" /><CheckBox Content="Notify on server start/stop" IsChecked="{Binding NotifyOnServerState}" Style="{StaticResource ConfigCheckBoxStyle}" /><CheckBox Content="Notify on player join/leave" IsChecked="{Binding NotifyOnPlayers}" Style="{StaticResource ConfigCheckBoxStyle}" /><CheckBox Content="Notify on errors" IsChecked="{Binding NotifyOnErrors}" Style="{StaticResource ConfigCheckBoxStyle}" /><CheckBox Content="Play sound notifications" Style="{StaticResource ConfigCheckBoxStyle}" /></StackPanel></Border>
-                    <Border Style="{StaticResource ConfigCardStyle}"><StackPanel><TextBlock Text="⚒  Advanced" Style="{StaticResource ConfigCardTitleStyle}" /><CheckBox Content="Enable developer mode" Style="{StaticResource ConfigCheckBoxStyle}" /><CheckBox Content="Show advanced options" IsChecked="True" Style="{StaticResource ConfigCheckBoxStyle}" /><CheckBox Content="Keep server process alive on UI close" Style="{StaticResource ConfigCheckBoxStyle}" /></StackPanel></Border>
+                    <Border Style="{StaticResource ConfigCardStyle}" Margin="0,0,0,12">
+                        <StackPanel>
+                            <TextBlock Text="♟  Notifications" Style="{StaticResource ConfigCardTitleStyle}" />
+                            <CheckBox Content="Notify on server start/stop" IsChecked="{Binding NotifyOnServerState}" Style="{StaticResource ConfigCheckBoxStyle}" />
+                            <CheckBox Content="Notify on player join/leave" IsChecked="{Binding NotifyOnPlayers}" Style="{StaticResource ConfigCheckBoxStyle}" />
+                            <CheckBox Content="Notify on errors" IsChecked="{Binding NotifyOnErrors}" Style="{StaticResource ConfigCheckBoxStyle}" />
+                            <CheckBox Content="Play sound notifications" Style="{StaticResource ConfigCheckBoxStyle}" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource ConfigCardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="⚒  Advanced" Style="{StaticResource ConfigCardTitleStyle}" />
+                            <CheckBox Content="Enable developer mode" Style="{StaticResource ConfigCheckBoxStyle}" />
+                            <CheckBox Content="Show advanced options" IsChecked="True" Style="{StaticResource ConfigCheckBoxStyle}" />
+                            <CheckBox Content="Keep server process alive on UI close" Style="{StaticResource ConfigCheckBoxStyle}" />
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
             </Grid>
         </Grid>

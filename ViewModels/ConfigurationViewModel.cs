@@ -1,3 +1,7 @@
+using System.IO;
+using Forms = System.Windows.Forms;
+using Microsoft.Win32;
+
 namespace ValheimServerManager.ViewModels;
 
 public sealed class ConfigurationViewModel : ViewModelBase
@@ -15,6 +19,19 @@ public sealed class ConfigurationViewModel : ViewModelBase
     private bool _notifyOnServerState = true;
     private bool _notifyOnPlayers = true;
     private bool _notifyOnErrors = true;
+
+    public ConfigurationViewModel()
+    {
+        BrowseServerDirectoryCommand = new RelayCommand(() => ServerDirectory = PickFolder(ServerDirectory));
+        BrowseExecutableCommand = new RelayCommand(() => ServerExecutable = PickExecutable(ServerExecutable));
+        BrowseWorldsDirectoryCommand = new RelayCommand(() => WorldsDirectory = PickFolder(WorldsDirectory));
+        BrowseBackupsDirectoryCommand = new RelayCommand(() => BackupsDirectory = PickFolder(BackupsDirectory));
+    }
+
+    public RelayCommand BrowseServerDirectoryCommand { get; }
+    public RelayCommand BrowseExecutableCommand { get; }
+    public RelayCommand BrowseWorldsDirectoryCommand { get; }
+    public RelayCommand BrowseBackupsDirectoryCommand { get; }
 
     public string ServerDirectory { get => _serverDirectory; set => Set(ref _serverDirectory, value); }
     public string ServerExecutable { get => _serverExecutable; set => Set(ref _serverExecutable, value); }
@@ -41,6 +58,37 @@ public sealed class ConfigurationViewModel : ViewModelBase
     public string SelectedLanguage { get; set; } = "English";
     public string SelectedLogLevel { get; set; } = "Info";
     public string SelectedBackupInterval { get; set; } = "Every 6 hours";
+
+    private static string PickFolder(string currentValue)
+    {
+        var initial = Directory.Exists(currentValue) ? currentValue : Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+
+        using var dialog = new Forms.FolderBrowserDialog
+        {
+            Description = "Select a folder",
+            SelectedPath = initial,
+            ShowNewFolderButton = true
+        };
+
+        return dialog.ShowDialog() == Forms.DialogResult.OK ? dialog.SelectedPath : currentValue;
+    }
+
+    private static string PickExecutable(string currentValue)
+    {
+        var initialDirectory = Directory.Exists(Path.GetDirectoryName(currentValue) ?? string.Empty)
+            ? Path.GetDirectoryName(currentValue)!
+            : Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+
+        var dialog = new OpenFileDialog
+        {
+            Filter = "Valheim server executable (*.exe)|*.exe|All files (*.*)|*.*",
+            InitialDirectory = initialDirectory,
+            FileName = Path.GetFileName(currentValue),
+            CheckFileExists = true
+        };
+
+        return dialog.ShowDialog() == true ? dialog.FileName : currentValue;
+    }
 
     private void Set<T>(ref T field, T value, [System.Runtime.CompilerServices.CallerMemberName] string? propertyName = null)
     {
