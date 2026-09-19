@@ -12,60 +12,25 @@
     <SolidColorBrush x:Key="SuccessBrush" Color="#50D67A" />
     <SolidColorBrush x:Key="DangerBrush" Color="#E07676" />
     <SolidColorBrush x:Key="ConfigInputBackgroundBrush" Color="#122331" />
+    <SolidColorBrush x:Key="HeaderBackgroundBrush" Color="#0F1D29" />
+    <SolidColorBrush x:Key="HeaderPrimaryTextBrush" Color="#E9F4FF" />
+    <SolidColorBrush x:Key="HeaderSecondaryTextBrush" Color="#E6EEF6" />
+    <SolidColorBrush x:Key="HoverBackgroundBrush" Color="#102534" />
+    <SolidColorBrush x:Key="SecondaryButtonBackgroundBrush" Color="#1A2E3F" />
+    <SolidColorBrush x:Key="AccentButtonBackgroundBrush" Color="#1F73B9" />
 
     <Style x:Key="SidebarNavButtonStyle" TargetType="Button">
-        <Setter Property="Height" Value="42" />
-        <Setter Property="Margin" Value="0,0,0,6" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{DynamicResource SecondaryTextBrush}" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="HorizontalContentAlignment" Value="Left" />
-        <Setter Property="Padding" Value="14,0,14,0" />
-        <Setter Property="FontSize" Value="14" />
-        <Setter Property="FontWeight" Value="Medium" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border x:Name="Root" Background="Transparent" CornerRadius="8">
-                        <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,0,0" />
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Root" Property="Background" Value="#102534" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="Height" Value="42" /><Setter Property="Margin" Value="0,0,0,6" />
+        <Setter Property="Background" Value="Transparent" /><Setter Property="Foreground" Value="{DynamicResource SecondaryTextBrush}" />
+        <Setter Property="BorderThickness" Value="0" /><Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Padding" Value="14,0,14,0" /><Setter Property="FontSize" Value="14" /><Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button"><Border x:Name="Root" Background="Transparent" CornerRadius="8"><ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,0,0" /></Border><ControlTemplate.Triggers><Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Root" Property="Background" Value="{DynamicResource HoverBackgroundBrush}" /></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter>
     </Style>
-
     <Style x:Key="PrimaryActionButtonStyle" TargetType="Button">
-        <Setter Property="Height" Value="34" />
-        <Setter Property="MinWidth" Value="90" />
-        <Setter Property="Margin" Value="0,0,10,0" />
-        <Setter Property="Padding" Value="16,0,16,0" />
-        <Setter Property="Background" Value="{DynamicResource AccentBrush}" />
-        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
-        <Setter Property="FontWeight" Value="SemiBold" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" CornerRadius="7" Padding="{TemplateBinding Padding}">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="Height" Value="34" /><Setter Property="MinWidth" Value="90" /><Setter Property="Margin" Value="0,0,10,0" /><Setter Property="Padding" Value="16,0,16,0" />
+        <Setter Property="Background" Value="{DynamicResource AccentBrush}" /><Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" /><Setter Property="FontWeight" Value="SemiBold" /><Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button"><Border Background="{TemplateBinding Background}" CornerRadius="7" Padding="{TemplateBinding Padding}"><ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" /></Border></ControlTemplate></Setter.Value></Setter>
     </Style>
-
-    <Style x:Key="SecondaryActionButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryActionButtonStyle}">
-        <Setter Property="Background" Value="#1A2E3F" />
-        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
-    </Style>
-
-    <Style x:Key="AccentActionButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryActionButtonStyle}">
-        <Setter Property="Background" Value="#1F73B9" />
-    </Style>
+    <Style x:Key="SecondaryActionButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryActionButtonStyle}"><Setter Property="Background" Value="{DynamicResource SecondaryButtonBackgroundBrush}" /><Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" /><Setter Property="BorderThickness" Value="1" /></Style>
+    <Style x:Key="AccentActionButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryActionButtonStyle}"><Setter Property="Background" Value="{DynamicResource AccentButtonBackgroundBrush}" /></Style>
 </ResourceDictionary>
