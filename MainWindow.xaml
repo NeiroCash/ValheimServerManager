@@ -4,10 +4,7 @@
         xmlns:views="clr-namespace:ValheimServerManager.Views"
         xmlns:vm="clr-namespace:ValheimServerManager.ViewModels"
         Title="Valheim Server Manager"
-        Width="1500"
-        Height="920"
-        MinWidth="1200"
-        MinHeight="760"
+        Width="1500" Height="920" MinWidth="1200" MinHeight="760"
         WindowStartupLocation="CenterScreen"
         Background="{StaticResource WindowBackgroundBrush}"
         Foreground="{StaticResource PrimaryTextBrush}">
@@ -15,39 +12,28 @@
         <vm:MainWindowViewModel />
     </Window.DataContext>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="108" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:DashboardViewModel}"><views:DashboardView /></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ConfigurationViewModel}"><views:ConfigurationView /></DataTemplate>
+    </Window.Resources>
 
+    <Grid>
+        <Grid.RowDefinitions><RowDefinition Height="108" /><RowDefinition Height="*" /></Grid.RowDefinitions>
         <Border Grid.Row="0" Background="#0F1D29">
             <Grid Margin="24,18,22,14">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
+                <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="VALHEIM" FontSize="34" FontWeight="Bold" Foreground="#E9F4FF" />
                     <TextBlock Text="Server Manager" FontSize="30" FontWeight="SemiBold" Margin="12,0,0,0" Foreground="#E6EEF6" VerticalAlignment="Center" />
                 </StackPanel>
-
-                <TextBlock Grid.Column="1" Text="v0.1.0" Margin="10,12,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{StaticResource MutedTextBrush}" FontSize="12" />
-
+                <TextBlock Grid.Column="1" Text="v0.1.0" Margin="10,12,0,0" Foreground="{StaticResource MutedTextBrush}" FontSize="12" />
                 <TextBlock Grid.Column="2" Text="A home in the tenth world" Foreground="{StaticResource SecondaryTextBrush}" FontSize="13" VerticalAlignment="Center" />
             </Grid>
         </Border>
-
         <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="220" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
+            <Grid.ColumnDefinitions><ColumnDefinition Width="220" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
             <views:NavigationSidebar Grid.Column="0" />
-            <views:DashboardView Grid.Column="1" />
+            <ContentControl Grid.Column="1" Content="{Binding CurrentPage}" />
         </Grid>
     </Grid>
 </Window>
