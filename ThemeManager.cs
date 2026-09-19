@@ -19,6 +19,12 @@ public static class ThemeManager
         SetColor(resources, "AccentBrush", GetAccent(accentColor));
         SetColor(resources, "AccentDarkBrush", GetAccentDark(accentColor));
         SetColor(resources, "ConfigInputBackgroundBrush", isLight ? "#FFFFFF" : "#122331");
+        SetColor(resources, "HeaderBackgroundBrush", isLight ? "#DCE5EC" : "#0F1D29");
+        SetColor(resources, "HeaderPrimaryTextBrush", isLight ? "#17212B" : "#E9F4FF");
+        SetColor(resources, "HeaderSecondaryTextBrush", isLight ? "#263746" : "#E6EEF6");
+        SetColor(resources, "HoverBackgroundBrush", isLight ? "#D2DEE7" : "#102534");
+        SetColor(resources, "SecondaryButtonBackgroundBrush", isLight ? "#E8EEF2" : "#1A2E3F");
+        SetColor(resources, "AccentButtonBackgroundBrush", isLight ? "#367FBD" : "#1F73B9");
 
         SetText(resources, "DashboardText", IsRussian(language) ? "Панель управления" : "Dashboard");
         SetText(resources, "ConfigurationText", IsRussian(language) ? "Конфигурация" : "Configuration");
@@ -29,13 +35,29 @@ public static class ThemeManager
     }
 
     private static bool IsRussian(string? language) => string.Equals(language, "Русский", StringComparison.OrdinalIgnoreCase);
-    private static void SetText(System.Windows.ResourceDictionary resources, string key, string value) => resources[key] = value;
-    private static string GetAccent(string? value) => value switch { "Green" => "#42C77A", "Amber" => "#E6A23C", _ => "#4AA3FF" };
-    private static string GetAccentDark(string? value) => value switch { "Green" => "#27945A", "Amber" => "#B97816", _ => "#2E7ACB" };
+
+    private static void SetText(System.Windows.ResourceDictionary resources, string key, string value)
+    {
+        resources[key] = value;
+    }
+
+    private static string GetAccent(string? value) => value switch
+    {
+        "Green" => "#42C77A",
+        "Amber" => "#E6A23C",
+        _ => "#4AA3FF"
+    };
+
+    private static string GetAccentDark(string? value) => value switch
+    {
+        "Green" => "#27945A",
+        "Amber" => "#B97816",
+        _ => "#2E7ACB"
+    };
 
     private static void SetColor(System.Windows.ResourceDictionary resources, string key, string value)
     {
-        var color = (global::System.Windows.Media.Color)global::System.Windows.Media.ColorConverter.ConvertFromString(value)!;
+        var color = (Color)ColorConverter.ConvertFromString(value)!;
         resources[key] = new SolidColorBrush(color);
     }
 }
