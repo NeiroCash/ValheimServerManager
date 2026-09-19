@@ -1,9 +1,109 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Style x:Key="ConfigCardStyle" TargetType="Border"><Setter Property="Background" Value="{StaticResource CardBackgroundBrush}" /><Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" /><Setter Property="BorderThickness" Value="1" /><Setter Property="CornerRadius" Value="8" /><Setter Property="Padding" Value="16" /></Style>
-    <Style x:Key="ConfigCardTitleStyle" TargetType="TextBlock"><Setter Property="FontSize" Value="17" /><Setter Property="FontWeight" Value="SemiBold" /><Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}" /><Setter Property="Margin" Value="0,0,0,14" /></Style>
-    <Style x:Key="FieldLabelStyle" TargetType="TextBlock"><Setter Property="Foreground" Value="{StaticResource SecondaryTextBrush}" /><Setter Property="FontSize" Value="13" /><Setter Property="Margin" Value="0,8,0,5" /></Style>
-    <Style x:Key="ConfigTextBoxStyle" TargetType="TextBox"><Setter Property="Background" Value="#122331" /><Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}" /><Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" /><Setter Property="BorderThickness" Value="1" /><Setter Property="Padding" Value="9,7" /><Setter Property="FontSize" Value="13" /></Style>
-    <Style x:Key="ConfigComboBoxStyle" TargetType="ComboBox"><Setter Property="Background" Value="#122331" /><Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}" /><Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" /><Setter Property="BorderThickness" Value="1" /><Setter Property="Padding" Value="7" /><Setter Property="Margin" Value="0,0,0,4" /></Style>
-    <Style x:Key="ConfigCheckBoxStyle" TargetType="CheckBox"><Setter Property="Foreground" Value="{StaticResource SecondaryTextBrush}" /><Setter Property="FontSize" Value="13" /><Setter Property="Margin" Value="0,10,0,0" /></Style>
+    <Style x:Key="ConfigCardStyle" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource CardBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="16" />
+    </Style>
+
+    <Style x:Key="ConfigCardTitleStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}" />
+        <Setter Property="Margin" Value="0,0,0,14" />
+    </Style>
+
+    <Style x:Key="FieldLabelStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource SecondaryTextBrush}" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Margin" Value="0,8,0,5" />
+    </Style>
+
+    <Style x:Key="ConfigTextBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="#122331" />
+        <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="9,7" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="CaretBrush" Value="{StaticResource PrimaryTextBrush}" />
+    </Style>
+
+    <Style x:Key="ConfigComboBoxStyle" TargetType="ComboBox">
+        <Setter Property="Background" Value="#122331" />
+        <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="7" />
+        <Setter Property="Margin" Value="0,0,0,4" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <ToggleButton Name="ToggleButton"
+                                      Focusable="False"
+                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                      Background="{TemplateBinding Background}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      Foreground="{TemplateBinding Foreground}"
+                                      ClickMode="Press">
+                            <ToggleButton.Template>
+                                <ControlTemplate>
+                                    <Border x:Name="Border"
+                                            Background="#122331"
+                                            BorderBrush="{StaticResource BorderBrush}"
+                                            BorderThickness="1"
+                                            CornerRadius="6">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="28" />
+                                            </Grid.ColumnDefinitions>
+                                            <ContentPresenter Margin="10,5,0,5"
+                                                              HorizontalAlignment="Left"
+                                                              VerticalAlignment="Center"
+                                                              Content="{Binding SelectionBoxItem, RelativeSource={RelativeSource AncestorType=ComboBox}}"
+                                                              ContentTemplate="{Binding SelectionBoxItemTemplate, RelativeSource={RelativeSource AncestorType=ComboBox}}" />
+                                            <Path Grid.Column="1"
+                                                  Data="M 0 0 L 5 5 L 10 0"
+                                                  Stroke="{StaticResource PrimaryTextBrush}"
+                                                  StrokeThickness="1.5"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center" />
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+                        <Popup Placement="Bottom"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               PopupAnimation="Slide">
+                            <Border Background="#162B3B"
+                                    BorderBrush="{StaticResource BorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="6"
+                                    SnapsToDevicePixels="True">
+                                <ScrollViewer Margin="0,4,0,4">
+                                    <ItemsPresenter />
+                                </ScrollViewer>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ConfigCheckBoxStyle" TargetType="CheckBox">
+        <Setter Property="Foreground" Value="{StaticResource SecondaryTextBrush}" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Margin" Value="0,10,0,0" />
+    </Style>
 </ResourceDictionary>
