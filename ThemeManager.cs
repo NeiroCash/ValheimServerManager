@@ -1,0 +1,51 @@
+using System.Windows;
+using System.Windows.Media;
+
+namespace ValheimServerManager;
+
+public static class ThemeManager
+{
+    public static void ApplyTheme(string? theme, string? accentColor)
+    {
+        var resources = Application.Current.Resources;
+        var isLight = string.Equals(theme, "Light", StringComparison.OrdinalIgnoreCase);
+
+        SetColor(resources, "WindowBackgroundBrush", isLight ? "#F2F5F8" : "#0D1820");
+        SetColor(resources, "SidebarBackgroundBrush", isLight ? "#E7EDF2" : "#0B1320");
+        SetColor(resources, "CardBackgroundBrush", isLight ? "#FFFFFF" : "#162B3B");
+        SetColor(resources, "BorderBrush", isLight ? "#C5D0D9" : "#25415A");
+        SetColor(resources, "PrimaryTextBrush", isLight ? "#17212B" : "#EFF7FF");
+        SetColor(resources, "SecondaryTextBrush", isLight ? "#405363" : "#B7C9D7");
+        SetColor(resources, "MutedTextBrush", isLight ? "#657887" : "#7C8FA1");
+        SetColor(resources, "AccentBrush", GetAccent(accentColor));
+        SetColor(resources, "AccentDarkBrush", GetAccentDark(accentColor));
+
+        SetColor(resources, "ConfigInputBackgroundBrush", isLight ? "#FFFFFF" : "#122331");
+    }
+
+    private static string GetAccent(string? accentColor) => accentColor switch
+    {
+        "Green" => "#42C77A",
+        "Amber" => "#E6A23C",
+        _ => "#4AA3FF"
+    };
+
+    private static string GetAccentDark(string? accentColor) => accentColor switch
+    {
+        "Green" => "#27945A",
+        "Amber" => "#B97816",
+        _ => "#2E7ACB"
+    };
+
+    private static void SetColor(ResourceDictionary resources, string key, string color)
+    {
+        if (resources[key] is SolidColorBrush brush)
+        {
+            brush.Color = (Color)ColorConverter.ConvertFromString(color)!;
+        }
+        else
+        {
+            resources[key] = new SolidColorBrush((Color)ColorConverter.ConvertFromString(color)!);
+        }
+    }
+}
