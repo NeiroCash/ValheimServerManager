@@ -40,6 +40,7 @@ public sealed class ConfigurationViewModel : ViewModelBase
 
         RefreshWorlds();
         LoadConfiguration();
+        UpdateExecutableFromServerDirectory();
     }
 
     public RelayCommand BrowseServerDirectoryCommand { get; }
@@ -49,7 +50,16 @@ public sealed class ConfigurationViewModel : ViewModelBase
     public RelayCommand RefreshWorldsCommand { get; }
     public RelayCommand SaveConfigurationCommand { get; }
 
-    public string ServerDirectory { get => _serverDirectory; set => Set(ref _serverDirectory, value); }
+    public string ServerDirectory
+    {
+        get => _serverDirectory;
+        set
+        {
+            if (!Set(ref _serverDirectory, value)) return;
+            UpdateExecutableFromServerDirectory();
+        }
+    }
+
     public string ServerExecutable { get => _serverExecutable; set => Set(ref _serverExecutable, value); }
     public string WorldsDirectory { get => _worldsDirectory; set => Set(ref _worldsDirectory, value); }
     public string BackupsDirectory { get => _backupsDirectory; set => Set(ref _backupsDirectory, value); }
@@ -78,6 +88,17 @@ public sealed class ConfigurationViewModel : ViewModelBase
     public string SelectedLanguage { get; set; } = "English";
     public string SelectedLogLevel { get; set; } = "Info";
     public string SelectedBackupInterval { get; set; } = "Every 6 hours";
+
+    private void UpdateExecutableFromServerDirectory()
+    {
+        if (string.IsNullOrWhiteSpace(ServerDirectory)) return;
+
+        var executablePath = Path.Combine(ServerDirectory, "valheim_server.exe");
+        if (File.Exists(executablePath))
+        {
+            ServerExecutable = executablePath;
+        }
+    }
 
     private void RefreshWorlds()
     {
