@@ -35,7 +35,7 @@ public static class ThemeManager
         _ => "#2E7ACB"
     };
 
-    private static void SetColor(ResourceDictionary resources, string key, string color)
+    private static void SetColor(System.Windows.ResourceDictionary resources, string key, string color)
     {
         var convertedColor = (Color)ColorConverter.ConvertFromString(color)!;
 
