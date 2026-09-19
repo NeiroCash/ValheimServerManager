@@ -1,6 +1,6 @@
 using System.IO;
 using Forms = System.Windows.Forms;
-using Microsoft.Win32;
+using WpfOpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace ValheimServerManager.ViewModels;
 
@@ -61,7 +61,9 @@ public sealed class ConfigurationViewModel : ViewModelBase
 
     private static string PickFolder(string currentValue)
     {
-        var initial = Directory.Exists(currentValue) ? currentValue : Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+        var initial = Directory.Exists(currentValue)
+            ? currentValue
+            : Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
 
         using var dialog = new Forms.FolderBrowserDialog
         {
@@ -75,11 +77,12 @@ public sealed class ConfigurationViewModel : ViewModelBase
 
     private static string PickExecutable(string currentValue)
     {
-        var initialDirectory = Directory.Exists(Path.GetDirectoryName(currentValue) ?? string.Empty)
-            ? Path.GetDirectoryName(currentValue)!
+        var currentDirectory = Path.GetDirectoryName(currentValue);
+        var initialDirectory = !string.IsNullOrWhiteSpace(currentDirectory) && Directory.Exists(currentDirectory)
+            ? currentDirectory
             : Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
 
-        var dialog = new OpenFileDialog
+        var dialog = new WpfOpenFileDialog
         {
             Filter = "Valheim server executable (*.exe)|*.exe|All files (*.*)|*.*",
             InitialDirectory = initialDirectory,
