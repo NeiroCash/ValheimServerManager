@@ -57,7 +57,7 @@ public static class ThemeManager
 
     private static void SetColor(System.Windows.ResourceDictionary resources, string key, string value)
     {
-        var color = (Color)ColorConverter.ConvertFromString(value)!;
-        resources[key] = new SolidColorBrush(color);
+        var color = (global::System.Windows.Media.Color)global::System.Windows.Media.ColorConverter.ConvertFromString(value)!;
+        resources[key] = new global::System.Windows.Media.SolidColorBrush(color);
     }
 }
