@@ -4,7 +4,7 @@ namespace ValheimServerManager;
 
 public static class ThemeManager
 {
-    public static void ApplyTheme(string? theme, string? accentColor)
+    public static void ApplyTheme(string? theme, string? accentColor, string? language = "English")
     {
         var resources = System.Windows.Application.Current.Resources;
         var isLight = string.Equals(theme, "Light", StringComparison.OrdinalIgnoreCase);
@@ -19,25 +19,23 @@ public static class ThemeManager
         SetColor(resources, "AccentBrush", GetAccent(accentColor));
         SetColor(resources, "AccentDarkBrush", GetAccentDark(accentColor));
         SetColor(resources, "ConfigInputBackgroundBrush", isLight ? "#FFFFFF" : "#122331");
+
+        SetText(resources, "DashboardText", IsRussian(language) ? "Панель управления" : "Dashboard");
+        SetText(resources, "ConfigurationText", IsRussian(language) ? "Конфигурация" : "Configuration");
+        SetText(resources, "ServerConnectedText", IsRussian(language) ? "Сервер подключён" : "Server connected");
+        SetText(resources, "SaveConfigurationText", IsRussian(language) ? "Сохранить конфигурацию" : "Save Configuration");
+        SetText(resources, "ConfigurationTitleText", IsRussian(language) ? "Конфигурация" : "Configuration");
+        SetText(resources, "ConfigurationSubtitleText", IsRussian(language) ? "Настройки приложения, сервера и дополнительные параметры" : "Application, server and advanced settings");
     }
 
-    private static string GetAccent(string? accentColor) => accentColor switch
-    {
-        "Green" => "#42C77A",
-        "Amber" => "#E6A23C",
-        _ => "#4AA3FF"
-    };
+    private static bool IsRussian(string? language) => string.Equals(language, "Русский", StringComparison.OrdinalIgnoreCase);
+    private static void SetText(System.Windows.ResourceDictionary resources, string key, string value) => resources[key] = value;
+    private static string GetAccent(string? value) => value switch { "Green" => "#42C77A", "Amber" => "#E6A23C", _ => "#4AA3FF" };
+    private static string GetAccentDark(string? value) => value switch { "Green" => "#27945A", "Amber" => "#B97816", _ => "#2E7ACB" };
 
-    private static string GetAccentDark(string? accentColor) => accentColor switch
+    private static void SetColor(System.Windows.ResourceDictionary resources, string key, string value)
     {
-        "Green" => "#27945A",
-        "Amber" => "#B97816",
-        _ => "#2E7ACB"
-    };
-
-    private static void SetColor(System.Windows.ResourceDictionary resources, string key, string color)
-    {
-        var convertedColor = (global::System.Windows.Media.Color)global::System.Windows.Media.ColorConverter.ConvertFromString(color)!;
-        resources[key] = new SolidColorBrush(convertedColor);
+        var color = (global::System.Windows.Media.Color)global::System.Windows.Media.ColorConverter.ConvertFromString(value)!;
+        resources[key] = new SolidColorBrush(color);
     }
 }
