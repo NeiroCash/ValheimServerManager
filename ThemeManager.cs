@@ -1,4 +1,3 @@
-using System.Windows;
 using System.Windows.Media;
 
 namespace ValheimServerManager;
@@ -7,7 +6,7 @@ public static class ThemeManager
 {
     public static void ApplyTheme(string? theme, string? accentColor)
     {
-        var resources = Application.Current.Resources;
+        var resources = System.Windows.Application.Current.Resources;
         var isLight = string.Equals(theme, "Light", StringComparison.OrdinalIgnoreCase);
 
         SetColor(resources, "WindowBackgroundBrush", isLight ? "#F2F5F8" : "#0D1820");
@@ -19,7 +18,6 @@ public static class ThemeManager
         SetColor(resources, "MutedTextBrush", isLight ? "#657887" : "#7C8FA1");
         SetColor(resources, "AccentBrush", GetAccent(accentColor));
         SetColor(resources, "AccentDarkBrush", GetAccentDark(accentColor));
-
         SetColor(resources, "ConfigInputBackgroundBrush", isLight ? "#FFFFFF" : "#122331");
     }
 
@@ -39,13 +37,15 @@ public static class ThemeManager
 
     private static void SetColor(ResourceDictionary resources, string key, string color)
     {
+        var convertedColor = (Color)ColorConverter.ConvertFromString(color)!;
+
         if (resources[key] is SolidColorBrush brush)
         {
-            brush.Color = (Color)ColorConverter.ConvertFromString(color)!;
+            brush.Color = convertedColor;
         }
         else
         {
-            resources[key] = new SolidColorBrush((Color)ColorConverter.ConvertFromString(color)!);
+            resources[key] = new SolidColorBrush(convertedColor);
         }
     }
 }
