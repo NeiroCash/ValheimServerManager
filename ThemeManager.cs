@@ -38,14 +38,6 @@ public static class ThemeManager
     private static void SetColor(System.Windows.ResourceDictionary resources, string key, string color)
     {
         var convertedColor = (global::System.Windows.Media.Color)global::System.Windows.Media.ColorConverter.ConvertFromString(color)!;
-
-        if (resources[key] is SolidColorBrush brush)
-        {
-            brush.Color = convertedColor;
-        }
-        else
-        {
-            resources[key] = new SolidColorBrush(convertedColor);
-        }
+        resources[key] = new SolidColorBrush(convertedColor);
     }
 }
