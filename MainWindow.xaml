@@ -6,7 +6,7 @@
         Title="Valheim Server Manager"
         Width="1500" Height="920" MinWidth="1200" MinHeight="760"
         WindowStartupLocation="CenterScreen"
-        Background="{DynamicResource WindowBackgroundBrush}"
+        Background="#071018"
         Foreground="{DynamicResource PrimaryTextBrush}">
     <Window.DataContext>
         <vm:MainWindowViewModel />
@@ -17,23 +17,29 @@
         <DataTemplate DataType="{x:Type vm:ConfigurationViewModel}"><views:ConfigurationView /></DataTemplate>
     </Window.Resources>
 
-    <Grid Background="{DynamicResource WindowBackgroundBrush}">
-        <Grid.RowDefinitions><RowDefinition Height="108" /><RowDefinition Height="*" /></Grid.RowDefinitions>
-        <Border Grid.Row="0" Background="{DynamicResource HeaderBackgroundBrush}">
-            <Grid Margin="24,18,22,14">
-                <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Text="VALHEIM" FontSize="34" FontWeight="Bold" Foreground="{DynamicResource HeaderPrimaryTextBrush}" />
-                    <TextBlock Text="Server Manager" FontSize="30" FontWeight="SemiBold" Margin="12,0,0,0" Foreground="{DynamicResource HeaderSecondaryTextBrush}" VerticalAlignment="Center" />
-                </StackPanel>
-                <TextBlock Grid.Column="1" Text="v0.1.0" Margin="10,12,0,0" Foreground="{DynamicResource MutedTextBrush}" FontSize="12" />
-                <TextBlock Grid.Column="2" Text="A home in the tenth world" Foreground="{DynamicResource SecondaryTextBrush}" FontSize="13" VerticalAlignment="Center" />
+    <Grid>
+        <Image Source="/ValheimServerManager;component/Resources/background.png"
+               Stretch="UniformToFill"
+               Panel.ZIndex="0" />
+        <Border Background="#CC071018" Panel.ZIndex="1" />
+        <Grid Panel.ZIndex="2">
+            <Grid.RowDefinitions><RowDefinition Height="108" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+            <Border Grid.Row="0" Background="#D9071018">
+                <Grid Margin="24,18,22,14">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="VALHEIM" FontSize="34" FontWeight="Bold" Foreground="{DynamicResource HeaderPrimaryTextBrush}" />
+                        <TextBlock Text="Server Manager" FontSize="30" FontWeight="SemiBold" Margin="12,0,0,0" Foreground="{DynamicResource HeaderSecondaryTextBrush}" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <TextBlock Grid.Column="1" Text="v0.1.0" Margin="10,12,0,0" Foreground="{DynamicResource MutedTextBrush}" FontSize="12" />
+                    <TextBlock Grid.Column="2" Text="A home in the tenth world" Foreground="{DynamicResource SecondaryTextBrush}" FontSize="13" VerticalAlignment="Center" />
+                </Grid>
+            </Border>
+            <Grid Grid.Row="1" Background="#99071018">
+                <Grid.ColumnDefinitions><ColumnDefinition Width="220" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                <views:NavigationSidebar Grid.Column="0" />
+                <ContentControl Grid.Column="1" Content="{Binding CurrentPage}" />
             </Grid>
-        </Border>
-        <Grid Grid.Row="1" Background="{DynamicResource WindowBackgroundBrush}">
-            <Grid.ColumnDefinitions><ColumnDefinition Width="220" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
-            <views:NavigationSidebar Grid.Column="0" />
-            <ContentControl Grid.Column="1" Content="{Binding CurrentPage}" />
         </Grid>
     </Grid>
 </Window>
